@@ -1,25 +1,49 @@
+import axios from "axios";
 import React from "react";
+import styled from "styled-components";
+import {Grid, Text} from "../elements/index";
+import { instance } from "../apis";
 
 export default function Login (props) {
+
+  axios({
+    method: 'post',
+    url: `${instance}/auth/signup`,
+    headers: { "Content-Type" : "applocation/json"},
+    body: {
+      email: 'Fred',
+      password: 'Flintstone'
+    }
+  });
+
   return (
     <>
-      <div>
-      This is Login Page.
-      <p>email</p>
-      <p>password</p>
-      <p>submit</p>
+      <Grid padding="16px">
+        <Text size="32px" bold>
+          로그인
+        </Text>
 
-      {/* 
-        1. 올바른 리스폰스 시 /todo 경로로 이동 
-        2. JWT는 로컬 스토리지에 저장  
-      */}
+        <Grid padding="16px 0px">
+          아이디
+          <input type="text"></input>
+        </Grid>
 
-      {/* 
-        1. 스토리지에 토큰이 있는 상태라면 /todo 로 리다이렉트
-        2. 토큰이 없이 /todo 에 접속시 / 경로로 리다이렉트
-      */}
+        <Grid padding="16px 0px">
+          비밀번호
+          <input type="password"></input>
+        </Grid>
 
-      </div>
+        <Button>
+          로그인하기
+        </Button>
+      </Grid>
     </>
-  )
-}
+  );
+};
+
+const Button = styled.button`
+  border: 1px solid black;
+  width: 100px;
+  height: 40px;
+`
+ 
