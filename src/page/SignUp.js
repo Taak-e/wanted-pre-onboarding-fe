@@ -12,7 +12,7 @@ export default function SignUp (props) {
   });
   const { userId, userPwd } = input;
   
-  const inputData = (e) => {
+  const handleInput = (e) => {
     const { name, value } = e.target;
     setInput({
       ...input,
@@ -28,7 +28,7 @@ export default function SignUp (props) {
     e.preventDefault();
     signUp(data).then((res) => {
       console.log(res.data);
-      // localStorage.setItem("accessToken", res.data.access_token);
+    
     });
   };
 
@@ -44,7 +44,7 @@ export default function SignUp (props) {
           <input
             name="userId"
             type="text"
-            onChange={inputData}
+            onChange={handleInput}
             value={userId}
           />
         </Grid>
@@ -54,12 +54,16 @@ export default function SignUp (props) {
           <input
             name="userPwd"
             type="password"
-            onChange={inputData}
+            onChange={handleInput}
             value={userPwd}
           />
         </Grid>
 
-        <Button onClick={submit}>
+
+        <Button 
+          onClick={submit}
+          // 버튼 비활성화를 통한 유효성 검사 
+          disabled={userId.includes("@") !== true || userPwd.length < 8 }>
           가입하기
         </Button>
       </Grid>
