@@ -1,23 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
+import Form from "../components/Form";
+import TodoListTemplate from "../components/TodoListTemplate";
 
 export default function Todo (props) {
-
-  function showTodo (todo) {
-    console.log(todo);
-  }
-  
 
 
   return (
     <>
-      <h1>This is TodoList Page.</h1>
-      <input type="text" 
-        onChange={e => {
-          const todo = e.target.value;
-            
-        }} 
-      />
-      <button onClick={showTodo()}>추가하기</button>
+      <TodoListTemplate form={<Form/>}>
+        템플릿 완성      
+      </TodoListTemplate>
     </>
   )
 }
