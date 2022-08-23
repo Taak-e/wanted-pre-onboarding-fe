@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Grid, Text} from "../elements/index";
 import { signIn } from "../apis/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login (props) {
+  const navigate = useNavigate();
 
-       const [input, setInput] = useState({
+  const [input, setInput] = useState({
     userId: "",
     userPwd: "",
   });
@@ -26,11 +28,15 @@ export default function Login (props) {
     };
     e.preventDefault();
     signIn(data).then((res) => {
-
-      console.log(res.data);
       localStorage.setItem("JWT", res.data.access_token)
+      navigate("/todo");
     });
   };
+
+  useEffect(() => {
+   if(localStorage.getItem("JWT") !== null)
+    return navigate("/todo");
+  })
 
   return (
     <>
