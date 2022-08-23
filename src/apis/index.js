@@ -1,13 +1,26 @@
 import axios from "axios";
 
+const serverUrl = "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/"
+
 const instance = axios.create ({
-  baseURL: "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/",
+  baseURL: serverUrl,
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
 });
 
-instance.interceptors.request.use(function (config) {
+const requiredInstance = axios.create({
+  baseURL: serverUrl,
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
+});
 
-  config.headers["Content-Type"] =
-    "application/json";
+requiredInstance.interceptors.request.use((config) => {
+  const access_token = localStorage.getItem("JWT");
+  config.headers.common["Authorization"] = `Bearer ${access_token}`;
   
   return config;
 });
