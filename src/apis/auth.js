@@ -1,4 +1,4 @@
-import instance from "./index"
+import {instance} from "./index"
 
   // 회원가입
   export const signUp = async (data) => {

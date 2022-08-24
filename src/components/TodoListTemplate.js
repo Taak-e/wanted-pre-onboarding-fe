@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useState ,useEffect } from 'react';
 import styled from 'styled-components';
+import { getTodos } from '../apis/todo';
+import Form from '../components/Form';
+import TodoItemList from './TodoItemList';
 
-const TodoListTemplate = ({form, children}) => {
+const TodoListTemplate = () => {
+  
+  const [todos, setTodos] = useState([]);
+  const [word, setWord] = useState(true);
+  
+  //get 요청
+  useEffect(() => {
+    getTodos().then((res) => {
+      setTodos(res.data);
+    });
+  }, [word]);
+
   return (
     <TodoTempliate>
       <Title>
         Todo - List
       </Title>
       <FormWrapper>
-        {form}
+        <Form word = {word} setWord = {setWord}/>
       </FormWrapper>
       <TodosWrapper>
-        { children }
+        {todos.map((list) => (
+          <TodoItemList key={list.id} list={list}/>
+        ))}
       </TodosWrapper>
     </TodoTempliate>
   );
@@ -21,7 +37,7 @@ export default TodoListTemplate;
 
 const TodoTempliate = styled.main`
   background: white;
-  width: 512px;
+  width: 600px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); 
   margin: 0 auto;
   margin-top: 4rem;
@@ -42,5 +58,6 @@ const FormWrapper = styled.section`
 `
 
 const TodosWrapper = styled.section`
+  padding-bottom: 3px;
   min-height: 5rem;
 `

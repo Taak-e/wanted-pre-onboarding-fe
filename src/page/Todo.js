@@ -12,10 +12,8 @@ export default function Todo (props) {
    })
 
   return (
-    <>
-      <TodoListTemplate form={<Form/>}>
-        템플릿 완성      
-      </TodoListTemplate>
-    </>
+   
+      <TodoListTemplate form={<Form/>} />
+   
   )
 }

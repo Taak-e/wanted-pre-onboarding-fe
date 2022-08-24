@@ -1,20 +1,49 @@
-import React from 'react';
+import React, { useRef, useState }from 'react';
 import styled from 'styled-components';
+import { createTodo } from '../apis/todo';
 
-const Form = ({value, onChange, onCreate, onKeyPress}) => {
+const Form = ({word, setWord}) => {
+
+  const inputRef = useRef();
+
+  const [todoInput, setTodoInput] = useState("");
+
+  const handleChange = (e) => {
+    setTodoInput(e.target.value);
+  };
+
+  // 할 일 생성 post 요청
+  const onSubmit = (e) => {
+    inputRef.current.focus();
+    e.preventDefault();
+
+    const data = {
+      todo: todoInput,
+    };
+    console.log(data)
+    createTodo(data).then((res) => {
+      setWord(!word);
+      setTodoInput("");
+    });
+  };
+
   return (
-    <FormBox>
-      <Input value={value} onChange={onChange} onKeyPress={onKeyPress}/>
-      <PlusButton onClick={onCreate}>
+    <FormBox onChange={handleChange}>
+      <Input 
+        value={todoInput}
+        onChange={handleChange}
+        ref={inputRef}
+        placeholder="할 일을 입력해주세요!"/>
+      <Button onClick={onSubmit}>
         추가하기
-      </PlusButton>
+      </Button>
     </FormBox>
   );
 };
 
 export default Form;
 
-const FormBox = styled.div`
+const FormBox = styled.form`
   display: flex;
 `
 const Input = styled.input`
@@ -25,7 +54,7 @@ const Input = styled.input`
   border-bottom: 1px solid indianred;
 `
 
-const PlusButton = styled.button`
+const Button = styled.button`
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
