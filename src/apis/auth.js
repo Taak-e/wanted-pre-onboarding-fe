@@ -6,9 +6,9 @@ import {instance} from "./index"
       const res = await instance.post("/auth/signup", data);
       return res;
     } catch (error) {
-      // if (error.request.statues !== 200) {
-      //   alert("오류입니다.");
-      // }
+      if (error.request.statues !== 200) {
+        alert("오류입니다.");
+      }
       console.log(error);
     }
   };
@@ -19,9 +19,9 @@ import {instance} from "./index"
       const res = await instance.post("/auth/signin", data);
       return res;
     } catch (error) {
-      // if (error.request.statues !== 200) {
-      //   alert("오류입니다.");
-      // }
+      if (error.request.statues !== 200) {
+        alert("오류입니다.");
+      }
       console.log(error);
     }
   };
